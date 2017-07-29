@@ -1,0 +1,10 @@
+pandas
+tensorflow
+sklearn
+scipy
+numpy
+keras
+xgboost
+nba_py
+lxml
+bs4
