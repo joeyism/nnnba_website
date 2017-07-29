@@ -10,5 +10,5 @@ class NNNbaConfig(AppConfig):
         nnnba_model = nnnba.NNNBA()
 
         for player_name in nnnba_model.all_player_names:
-            nnnba
+            stats = nnnba.getPlayerStats(player_name)
 
