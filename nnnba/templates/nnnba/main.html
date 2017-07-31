@@ -1,1 +1,12 @@
-<h1>Main Page</h1>
+{% load render_table from django_tables2 %}
+{% load static %}
+
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{% static 'django_tables2/themes/paleblue/css/screen.css' %}" />
+    </head>
+    <body>
+        {% render_table players%}
+    </body>
+</html>

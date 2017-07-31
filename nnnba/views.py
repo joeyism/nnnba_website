@@ -4,7 +4,8 @@ from .models import Player
 
 
 def main(request):
-    return render(request, 'nnnba/main.html', {})
+    players = Player.objects.all()
+    return render(request, 'nnnba/main.html', { "players": players })
 
 def player(request, player_id):
     player = get_object_or_404(Player, pk=player_id)
