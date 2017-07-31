@@ -1,1 +1,26 @@
-<h1>Player view</h1>
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load render_table from django_tables2 %}
+{% load static %}
+
+<h1>{{ player.name }}</h1>
+
+<div>
+    
+    <div>
+        {% bootstrap_label "Paid" %} : {{ player.paid}}
+    </div>
+
+    <div>
+        {% bootstrap_label "Projected Salary" %} : {{ player.projected_salaries}}
+    </div>
+
+    {% for stat in stats %}
+    <div>
+        {% bootstrap_label stat.0  %} : {{stat.1}}
+
+    </div>
+    {% endfor %}
+
+</div>

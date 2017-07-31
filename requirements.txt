@@ -8,3 +8,5 @@ xgboost
 nba_py
 lxml
 bs4
+django-bootstrap3
+django-tables2

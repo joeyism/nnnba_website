@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    'django_tables2',
+    'bootstrap3',
     'nnnba.apps.NNNbaConfig',
     'django.contrib.admin',
     'django.contrib.auth',
