@@ -1,12 +1,31 @@
 {% load render_table from django_tables2 %}
 {% load static %}
+{% load bootstrap3 %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript %}
 
 <!doctype html>
 <html>
     <head>
         <link rel="stylesheet" href="{% static 'django_tables2/themes/paleblue/css/screen.css' %}" />
+        <link rel="stylesheet" href="{% static 'nnnba/styles.css' %} "/>
     </head>
-    <body>
-        {% render_table players %}
+    <body class="all-players-body player-info-body">
+
+
+        <form action="" method="get" class="form main-player-search row">
+            <div class="main-search-box col-md-8">
+                {{ filter.form.as_p }}
+            </div>
+            <div class="col-md-4">
+                <input class="btn btn-primary" type="submit" />
+                <input class="btn" onclick="location.href='{% url 'nnnba:main' %}'" type="reset"/> 
+            </div>
+        </form>
+
+        <div class="">
+            {% render_table players %}
+        </div>
     </body>
 </html>

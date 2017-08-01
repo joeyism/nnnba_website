@@ -1,0 +1,116 @@
+table.paleblue thead tr {
+    font-size:15px;
+}
+
+tr.even {
+    font-size: 15px ;
+}
+
+tr.odd {
+    font-size: 15px ;
+}
+
+th.worth {
+    font-size: 15px !important;
+}
+
+td.worth {
+    font-weight:bold;
+}
+
+table.paleblue thead th > a:link, table.paleblue thead th > a:visited {
+    color: white;
+}
+
+table.paleblue thead tr th, table.paleblue thead tr td, table.paleblue thead tr th a {
+    background: #032f4f;
+    color: white;
+    text-transform: uppercase;
+    padding: 3px 5px;
+}
+
+table.paleblue {
+    margin-bottom: 2%;
+}
+
+table.paleblue + ul.pagination > li:first-child{
+    margin-left: 10px;
+}
+
+.select-to-see-model-text {
+    margin-left: 1%;
+    font-size: 120%;
+}
+
+.player-info-body{
+    padding: 2%;
+}
+
+.all-players-body.player-info-body{
+    padding-left: 4%;
+}
+
+.player-model-selection{
+    margin: auto; 
+    max-width: 50%;
+    margin-bottom: 2%;
+}
+
+.player-name{
+    margin-bottom: 2%;
+}
+
+.player-data-div{
+    margin-bottom: 2%;
+}
+
+.player-salary-div{
+    margin-bottom: 2%;
+}
+
+.player-base-stats-div{
+    margin-bottom: 2%;
+}
+
+.player-add-stats-div{
+    margin-bottom: 2%;
+}
+
+.model-dropdown{
+    width: 75%;
+    color: black;
+    border: 1px solid black;
+    padding: 1% 0 1% 2%;
+    background: white;
+}
+
+.model-dropdown option:disabled{
+    color: black;
+}
+
+.main-player-search{
+    max-width: 35%;
+    padding-top: 0.5%;
+    margin-bottom: 0%;
+    margin-left: 0%;
+    background-color: #f3f4f5;
+}
+
+input#id_name {
+    border: none;
+    padding-left: 2px;
+    color: #868686;
+}
+
+.main-search-box label {
+    font-size: 18px;
+}
+
+.main-search-box{
+    padding-top: 4px;
+}
+
+.center{
+    text-align:center;
+}
+

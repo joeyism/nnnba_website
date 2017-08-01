@@ -42,6 +42,7 @@ class PlayerStats(models.Model):
     center = models.FloatField(null=True)
 
 
+
 class MLModel(models.Model):
     name = models.CharField(max_length=256)
     coefs = models.ForeignKey(PlayerStats, null=True)

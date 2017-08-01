@@ -5,6 +5,7 @@
 
 {% load show_models %}
 
+
 <!doctype html>
 <html>
     <head>
@@ -18,12 +19,10 @@
         <div class="player-model-selection">
             {% show_models player.id model_name %}
         </div>
-        
         <div class="player-data-div">
             <div class="player-salary-div">
-                {% render_table salary %}
+                {% render_table value %}
             </div>
-
 
             <div class="player-base-stats-div">
                 {% render_table stats %}

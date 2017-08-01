@@ -1,0 +1,21 @@
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load bootstrap3 %}
+{% load show_models %}
+
+<div class="row">
+
+    <div class="col-xs-5 select-to-see-model-text">
+        Select a model to see predicted value: 
+    </div>
+    <div class="col-xs-6">
+        <select class="model-dropdown white" onchange="location = this.options[this.selectedIndex].value;">
+            <option {% if selected_model_name == "" %} selected {% endif %} disabled="disabled">Please select a model</option>
+            {% for model in all_models %}
+            <option value="{% url 'nnnba:player_worth' player_id model.name %}" {% if model.name == selected_model_name %} selected {% endif %}>{{model.name}}</option>
+            {% endfor %}
+        </select>
+
+    </div>
+</div>
