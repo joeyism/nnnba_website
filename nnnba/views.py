@@ -1,11 +1,15 @@
 from django.shortcuts import render
 from django.shortcuts import render, get_object_or_404
 from .models import Player
+from .tables import MainPlayersTable
+from django_tables2 import RequestConfig
 
 
 def main(request):
-    players = Player.objects.all()
+    players = MainPlayersTable(Player.objects.all())
+    RequestConfig(request).configure(players)
     return render(request, 'nnnba/main.html', { "players": players })
+
 
 def player(request, player_id):
     player = get_object_or_404(Player, pk=player_id)
