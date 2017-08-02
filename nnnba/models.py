@@ -63,8 +63,8 @@ class PlayerValue(models.Model):
     ml_model = models.ForeignKey(MLModel)
 
     worth = models.FloatField()
+    difference = models.FloatField(null=True)
 
     def __str__(self):
         return self.player.name + ": " + str(self.worth)
-
 

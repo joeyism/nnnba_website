@@ -1,5 +1,5 @@
 import django_tables2 as tables
-from .models import Player, PlayerStats
+from .models import Player, PlayerStats, PlayerValue
 from django_tables2.utils import A 
 
 class CurrencyColumn(tables.Column):
@@ -73,3 +73,17 @@ class PlayerValueTable(PlayerSalaryTable):
 
     class Meta: 
         attrs = {'class': 'paleblue', "width": "200%"}
+
+class PlayersValueByModel(tables.Table):
+    worth = CurrencyColumn(orderable=True)
+    name = tables.LinkColumn('nnnba:player_stats', text=lambda record: record.player.name, args=[A('player.id')], orderable=True, accessor='player.name')
+    paid = CurrencyColumn(accessor="player.paid")
+    difference = CurrencyColumn(verbose_name="Value Difference", accessor="difference")
+    projected_salaries = CurrencyColumn(accessor="player.projected_salaries")
+
+    class Meta: 
+        model = PlayerValue
+        attrs = {'class': 'paleblue', 'width':'200%'}
+        fields = ("name", "paid", "projected_salaries", "difference", "worth")
+
+

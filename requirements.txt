@@ -11,3 +11,4 @@ bs4
 django-bootstrap3
 django-tables2
 django-filter
+django-chartit

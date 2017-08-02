@@ -16,6 +16,8 @@
             <option value="{% url 'nnnba:player_worth' player_id model.name %}" {% if model.name == selected_model_name %} selected {% endif %}>{{model.name}}</option>
             {% endfor %}
         </select>
-
+        {% if selected_model_name != "" %}
+        <button class="btn btn-info" style="float:left; border-radius: 0px;" onclick="location.href='{% url 'nnnba:model_details' selected_model_name  %}'" >View Model Details</button>
+        {% endif %}
     </div>
 </div>

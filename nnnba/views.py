@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.shortcuts import render, get_object_or_404
 from .models import Player, MLModel, PlayerValue
-from .tables import MainPlayersTable, PlayerStatsTable, PlayerAdditionalStatsTable, PlayerSalaryTable, PlayerValueTable
+from .tables import MainPlayersTable, PlayerStatsTable, PlayerAdditionalStatsTable, PlayerSalaryTable, PlayerValueTable, PlayersValueByModel
 from .filters import MainPlayersFilter
 from django_tables2 import RequestConfig
+from chartit import DataPool, Chart
 
 
 def main(request):
@@ -12,6 +13,7 @@ def main(request):
         players = MainPlayersTable(Player.objects.all())
     else:
         players = MainPlayersTable(Player.objects.filter(name__icontains=filter_name))
+
     RequestConfig(request).configure(players)
     f = MainPlayersFilter(request.GET, queryset=Player.objects.all())
 
@@ -41,5 +43,13 @@ def player_worth(request, player_id, model_name):
 
     return render(request, 'nnnba/player_value.html', { "stats": stats, "additional_stats": additional_stats, "player": player.__dict__, "value": value, "model_name": model_name})
 
+def model_details(request, model_name):
+    ml_model = get_object_or_404(MLModel, name=model_name)
+    player_value_set = ml_model.playervalue_set.order_by("-worth")
+
+    player_value_table = PlayersValueByModel(player_value_set)
+    RequestConfig(request).configure(player_value_table)
+
+    return render(request, 'nnnba/model_details.html', {"player_value_table": player_value_table, "model_name": model_name})
 
 

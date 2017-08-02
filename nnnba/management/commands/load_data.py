@@ -55,7 +55,7 @@ def add_model_coef_player_values(model):
         for player_name in model.all_player_names:
             player = Player.objects.get(name=player_name)
             value = model.getPlayerValue(player_name, model_type=model_name)
-            player.playervalue_set.create(ml_model=ml_model, worth=float(value["worth"]))
+            player.playervalue_set.create(ml_model=ml_model, worth=float(value["worth"]), difference=float(value["worth"] - value["projected_salaries"]))
             player.save()
 
 

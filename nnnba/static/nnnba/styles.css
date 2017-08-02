@@ -77,11 +77,13 @@ table.paleblue + ul.pagination > li:first-child{
 }
 
 .model-dropdown{
-    width: 75%;
+    width: 50%;
     color: black;
     border: 1px solid black;
     padding: 1% 0 1% 2%;
     background: white;
+    float: left;
+    height: 34px;
 }
 
 .model-dropdown option:disabled{

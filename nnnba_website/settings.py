@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    'chartit',
     'django_filters',
     'django_tables2',
     'bootstrap3',

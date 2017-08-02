@@ -1,0 +1,16 @@
+{% load render_table from django_tables2 %}
+{% load static %}
+
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{% static 'django_tables2/themes/paleblue/css/screen.css' %}" />
+        <link rel="stylesheet" href="{% static 'nnnba/styles.css' %} "/>
+    </head>
+    <body class="all-players-body player-info-body">
+        <h1>{{model_name | upper}}</h1>
+
+        <h3>Most Valuable Player (by dollar)</h3>
+        {% render_table player_value_table %}
+    </body>
+</html>
