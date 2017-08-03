@@ -76,7 +76,7 @@ class PlayerValueTable(PlayerSalaryTable):
 
 class PlayersValueByModel(tables.Table):
     worth = CurrencyColumn(orderable=True)
-    name = tables.LinkColumn('nnnba:player_stats', text=lambda record: record.player.name, args=[A('player.id')], orderable=True, accessor='player.name')
+    name = tables.LinkColumn('nnnba:player_worth', text=lambda record: record.player.name, args=[A('player.id'), A('ml_model.name')], orderable=True, accessor='player.name')
     paid = CurrencyColumn(accessor="player.paid")
     difference = CurrencyColumn(verbose_name="Value Difference", accessor="difference")
     projected_salaries = CurrencyColumn(accessor="player.projected_salaries")

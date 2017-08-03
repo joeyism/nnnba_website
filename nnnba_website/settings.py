@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    'rest_framework',
     'chartit',
     'django_filters',
     'django_tables2',
@@ -42,6 +43,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions'
 )
 
 MIDDLEWARE_CLASSES = (

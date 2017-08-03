@@ -116,3 +116,6 @@ input#id_name {
     text-align:center;
 }
 
+.float-left{
+    float:left;
+}

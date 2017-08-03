@@ -1,16 +1,84 @@
 {% load render_table from django_tables2 %}
 {% load static %}
+{% load bootstrap3 %}
+{% load show_models_details %}
+
+{% bootstrap_css %}
 
 <!doctype html>
 <html>
     <head>
         <link rel="stylesheet" href="{% static 'django_tables2/themes/paleblue/css/screen.css' %}" />
         <link rel="stylesheet" href="{% static 'nnnba/styles.css' %} "/>
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript" src="{% static 'nnnba/js/highcharts.js' %}"></script>
     </head>
     <body class="all-players-body player-info-body">
-        <h1>{{model_name | upper}}</h1>
+        <h1>{{model_name | upper}} model details</h1>
 
         <h3>Most Valuable Player (by dollar)</h3>
-        {% render_table player_value_table %}
+
+        <div class="row">
+            <form action="" method="get" class="form main-player-search row col-md-6">
+                <div class="main-search-box col-md-8">
+                    {{ filter.form.as_p }}
+                </div>
+                <div class="col-md-4">
+                    <input class="btn btn-primary" type="submit" />
+                    <input class="btn" onclick="location.href='{% url 'nnnba:model_details' model_name %}'" type="reset"/> 
+                </div>
+            </form>
+
+            <div class="col-md-6">
+                {% show_models_details model_name %}
+            </div>
+        </div>
+
+
+
+        <div>
+            {% render_table player_value_table %}
+        </div>
+
+        {% if model_name in models_with_coefs %}
+        <h3>Coefficients of the model</h3>
+        <div id="container" style="min-width: 310px; max-width: 100%; height: 800px; margin: 0 auto"></div>
+
+        <script type="text/javascript">
+            $(function(){
+                $.getJSON("{% url 'nnnba:api:coef-detail' model_name %}", function(data){
+                    var coef_vals = [], field_names = [];
+
+                    Object.keys(data).forEach(function(val){
+                        field_names.push(val.toUpperCase());
+                        coef_vals.push(data[val]);
+                    });
+
+                    Highcharts.chart('container', {
+                        chart: {
+                            type: 'bar' 
+                        },
+                        title: {
+                            text: "Coefficient of each field for {{model_name | upper}}" 
+                        },
+                        xAxis: {
+                            categories: field_names,
+                            title: {
+                                text: null
+                            }
+                        },
+                        series: [{
+                            name: 'Coefficient',
+                            data: coef_vals
+                        }]
+                    })
+
+                });
+
+
+            });
+        </script>
+
+        {% endif %}
     </body>
 </html>

@@ -1,0 +1,14 @@
+{% load bootstrap3 %}
+{% bootstrap_css %}
+
+{% load show_models_details %}
+
+<div>
+
+        <select class="model-dropdown white" onchange="location = this.options[this.selectedIndex].value;">
+            <option {% if selected_model_name == "" %} selected {% endif %} disabled="disabled">Please select a model</option>
+            {% for model in all_models %}
+            <option value="{% url 'nnnba:model_details' model.name %}" {% if model.name == selected_model_name %} selected {% endif %}>{{model.name}}</option>
+            {% endfor %}
+        </select>
+</div>
