@@ -1,10 +1,11 @@
-import nba
-from nba import *
-import basketballCrawler as bc
+import os
+from . import nba
+from .nba import *
+from .  import basketballCrawler as bc
 from multiprocessing.dummy import Pool as ThreadPool
 from functools import partial
 import json
-from logger import *
+from .logger import *
 
 def start(parallel=True, measure_type="Advanced"):
     pool = ThreadPool(4)
@@ -32,8 +33,10 @@ def start(parallel=True, measure_type="Advanced"):
     print ("Start")
     print ("nbastats = nba.getAllPlayers()")
     nbastats = nba.getAllPlayers()
-    print ("bballref_players = bc.loadPlayerDictionary('crawled_data/players.json')")
-    bballref_players = bc.loadPlayerDictionary('crawled_data/players.json')
+
+    fn = os.path.join(os.path.dirname(__file__), 'crawled_data/players.json')
+    print ("bballref_players = bc.loadPlayerDictionary('" + fn + "')")
+    bballref_players = bc.loadPlayerDictionary(fn)
     
     print ("process to raw data")
     raw_data = []
@@ -47,7 +50,8 @@ def start(parallel=True, measure_type="Advanced"):
             raw_data.append(process_to_raw_data(bballref_players, player_stat_info))
         raw_data = [x for x in raw_data if x is not None]
             
-    with open("crawled_data/raw_data.json", "w") as outfile:
+    fn = os.path.join(os.path.dirname(__file__), "crawled_data/raw_data.json")
+    with open(fn, "w") as outfile:
         json.dump(raw_data, outfile)
 
 if __name__ == "__main__":

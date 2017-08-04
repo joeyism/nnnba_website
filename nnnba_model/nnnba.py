@@ -1,8 +1,9 @@
 import json
+import os
 import pandas as pd
 import sys
 import numpy as np
-from logger import *
+from .logger import *
 import logging
 
 from keras.models import Sequential
@@ -16,7 +17,7 @@ from sklearn.preprocessing import PolynomialFeatures
 from sklearn import svm
 from scipy.stats import skew
 import xgboost as xgb
-import prepare_data
+from . import prepare_data
 
 pd.set_option('display.max_columns', None)
 
@@ -29,6 +30,8 @@ class NNNBA:
     default_model_type = "lasso"
     assumed_max_salary = 35350000.0
 
+
+    all_player_names = []
 
     __threshold_per_col = {"OFF_RATING": 12, "PIE":0.11, "NET_RATING": 18, "GP": 50, "DEF_RATING": 7, "USG_PCT": 0.12, "FGA": None, "FGM": None, "FG3A": None, "PTS": None, "FTM": None, "FGM": None, "REB_PCT": None, "AGE": 4}
 
@@ -127,7 +130,8 @@ class NNNBA:
 
     def __init__(self, debug=False):
         logger.setLevel( logging.DEBUG if debug else logging.ERROR)
-        with open("crawled_data/raw_data.json", "r") as data_file:
+        fn = os.path.join(os.path.dirname(__file__), "crawled_data/raw_data.json")
+        with open(fn, "r") as data_file:
             raw_data = json.load(data_file)
 
         columns = raw_data[0]["header"]
@@ -154,7 +158,7 @@ class NNNBA:
                 age.append(player["age"])
 
                 positions_df.loc[len(positions_df)] = [0,0,0,0,0]
-                for position in player["positions"]:
+                for position in player["positions"]: #TODO: fix positions
                     positions_df[position][len(positions_df)] = 1
 
                 projected_salaries = 0
@@ -251,32 +255,40 @@ class NNNBA:
         this_results['SALARY_DIFF'] = diffY
         self.model_results["avg"] = this_results
 
+        # add all_player_names
+        self.all_player_names = list(names["NAME"].values)
+
 
     def getUndervalued(self, model_type=default_model_type):
         names = self.model_results[model_type]
-        print(names.loc[(names["SALARY_DIFF"] < 0) & (names["PROJECTED_SALARIES"] > 0)])
+        return names.loc[(names["SALARY_DIFF"] < 0) & (names["PROJECTED_SALARIES"] > 0)]
     
     def getPlayerValue(self, player_name, model_type=default_model_type):
         names = self.model_results[model_type]
         idx = names[names["NAME"] == player_name].index[0]
+        paid = float(self.Y_df.loc[idx]["SALARIES"])
+        projected_salaries = float(self.names["PROJECTED_SALARIES"][idx])
+        worth = float(names["WORTH"][idx])
 
-        print("\nPaid: " + '${:,.2f}'.format(float(self.Y_df.loc[idx]["SALARIES"])) + "\tFuture Salary: " + '${:,.2f}'.format(float(self.names["PROJECTED_SALARIES"][idx])) + "\tWorth: " + '${:,.2f}'.format(float(names["WORTH"][idx])) + "\n")
         self.getPlayerStats(player_name, trim=True)
+        return {"paid": paid, "projected_salaries": projected_salaries, "worth": worth}
     
     def getPlayerStats(self, player_name, trim=False):
         columns = self.X_df.columns
         if trim:
             columns = columns[:30]
-        print(self.X_df.loc[self.names["NAME"] == player_name, columns])
+        return self.X_df.loc[self.names["NAME"] == player_name, columns]
     
     def getMostValuablePlayers(self, model_type=default_model_type):
         names = self.model_results[model_type]
-        print(names.sort_values(by="WORTH")
-    )
+        return names.sort_values(by="WORTH")
+    
     
     def showAvailableModels(self):
-        for model in self.models:
-            print(model)
+        available_model = []
+        for model in self.model_results:
+            available_model.append(model)
+        return available_model
 
     def getPlayerNameByIndex(self, index):
         return self.names[self.name.index == index]
@@ -291,6 +303,7 @@ class NNNBA:
         plt.figure()
         plt.scatter(range(len(X)), X)
         plt.show()
+
 
 def get_data(parallel=True):
     prepare_data.start(parallel=parallel)
