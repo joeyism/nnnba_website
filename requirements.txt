@@ -14,3 +14,6 @@ django-filter
 django-chartit
 djangorestframework
 django-extensions
+psycopg2
+dj_database_url
+whitenoise
