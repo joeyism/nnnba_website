@@ -1,1 +1,1 @@
-web: gunicorn nnnba.wsgi --log-file -
+web: gunicorn nnnba_website.wsgi --log-file -
