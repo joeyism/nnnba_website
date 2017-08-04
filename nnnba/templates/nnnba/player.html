@@ -11,25 +11,30 @@
         <link rel="stylesheet" href="{% static 'django_tables2/themes/paleblue/css/screen.css' %}" />
         <link rel="stylesheet" href="{% static 'nnnba/styles.css' %} "/>
     </head>
-    <body class="player-info-body">
+    <body>
 
-        <h1 class="player-name">{{ player.name }}</h1>
+        {% include 'nnnba/header.html' %}
 
-        <div class="player-model-selection">
-            {% show_models player.id model_name %}
-        </div>
-        
-        <div class="player-data-div">
-            <div class="player-salary-div">
-                {% render_table salary %}
+        <div class="player-info-body">
+
+            <h1 class="player-name">{{ player.name }}</h1>
+
+            <div class="player-model-selection">
+                {% show_models player.id model_name %}
             </div>
 
+            <div class="player-data-div">
+                <div class="player-salary-div">
+                    {% render_table salary %}
+                </div>
 
-            <div class="player-base-stats-div">
-                {% render_table stats %}
-            </div>
-            <div class="player-add-stats-div">
-                {% render_table additional_stats %}
+
+                <div class="player-base-stats-div">
+                    {% render_table stats %}
+                </div>
+                <div class="player-add-stats-div">
+                    {% render_table additional_stats %}
+                </div>
             </div>
         </div>
     </body>

@@ -43,7 +43,7 @@ table.paleblue + ul.pagination > li:first-child{
 }
 
 .player-info-body{
-    padding: 2%;
+    padding: 0 5%;
 }
 
 .all-players-body.player-info-body{
@@ -52,7 +52,7 @@ table.paleblue + ul.pagination > li:first-child{
 
 .player-model-selection{
     margin: auto; 
-    max-width: 50%;
+    max-width: 100%;
     margin-bottom: 2%;
 }
 
@@ -91,7 +91,15 @@ table.paleblue + ul.pagination > li:first-child{
 }
 
 .main-player-search{
-    max-width: 35%;
+    max-width: 42%;
+    padding-top: 0.5%;
+    margin-bottom: 0%;
+    margin-left: 0%;
+    background-color: #f3f4f5;
+}
+
+.model-details-search{
+    max-width: 100%;
     padding-top: 0.5%;
     margin-bottom: 0%;
     margin-left: 0%;
@@ -118,4 +126,30 @@ input#id_name {
 
 .float-left{
     float:left;
+}
+
+.header{
+    background-color:#1D428A;
+    color: white;
+    font-weight: bold;
+    padding-left: 4%;
+}
+
+.header-title {
+    font-size: 500%;
+}
+
+.header-menu {
+    padding-bottom: 1%; 
+}
+
+.header-menu-item {
+    margin-right: 2%;
+    margin-left: 1%;
+    padding-bottom: 0.4%;
+    cursor: pointer;
+}
+
+.header-menu-item:hover{
+    border-bottom: 2px solid white;
 }

@@ -11,22 +11,28 @@
         <link rel="stylesheet" href="{% static 'django_tables2/themes/paleblue/css/screen.css' %}" />
         <link rel="stylesheet" href="{% static 'nnnba/styles.css' %} "/>
     </head>
-    <body class="all-players-body player-info-body">
-        <h1> All Players </h1>
+    <body>
+
+        {% include 'nnnba/header.html' %}
 
 
-        <form action="" method="get" class="form main-player-search row">
-            <div class="main-search-box col-md-8">
-                {{ filter.form.as_p }}
+        <div class="all-players-body player-info-body">
+
+            <h1> All Players </h1>
+
+            <form action="" method="get" class="form main-player-search row">
+                <div class="main-search-box col-md-8">
+                    {{ filter.form.as_p }}
+                </div>
+                <div class="col-md-4">
+                    <input class="btn btn-primary" type="submit" />
+                    <input class="btn" onclick="location.href='{% url 'nnnba:main' %}'" type="reset"/> 
+                </div>
+            </form>
+
+            <div class="">
+                {% render_table players %}
             </div>
-            <div class="col-md-4">
-                <input class="btn btn-primary" type="submit" />
-                <input class="btn" onclick="location.href='{% url 'nnnba:main' %}'" type="reset"/> 
-            </div>
-        </form>
-
-        <div class="">
-            {% render_table players %}
         </div>
     </body>
 </html>

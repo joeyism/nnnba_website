@@ -12,7 +12,7 @@ class MainPlayersTable(tables.Table):
     projected_salaries = CurrencyColumn()
     class Meta: 
         model = Player
-        attrs = {'class': 'paleblue', 'width':'200%'}
+        attrs = {'class': 'paleblue', 'width':'100%'}
         fields = ("name", "paid", "projected_salaries")
         empty_text = "There are no players with that name"
 
@@ -41,7 +41,7 @@ class PlayerStatsTable(tables.Table):
     pts = tables.Column(orderable=False)
 
     class Meta: 
-        attrs = {'class': 'paleblue', "width": "200%"}
+        attrs = {'class': 'paleblue', "width": "100%"}
 
 
 class PlayerAdditionalStatsTable(tables.Table):
@@ -59,20 +59,20 @@ class PlayerAdditionalStatsTable(tables.Table):
     pts_2nd_chance = tables.Column(orderable=False)
 
     class Meta: 
-        attrs = {'class': 'paleblue', "width": "200%"}
+        attrs = {'class': 'paleblue', "width": "100%"}
 
 class PlayerSalaryTable(tables.Table):
     paid = CurrencyColumn(orderable=False)
     projected_salaries = CurrencyColumn(orderable=False)
 
     class Meta: 
-        attrs = {'class': 'paleblue', "width": "200%"}
+        attrs = {'class': 'paleblue', "width": "100%"}
 
 class PlayerValueTable(PlayerSalaryTable):
     worth = CurrencyColumn(orderable=False)
 
     class Meta: 
-        attrs = {'class': 'paleblue', "width": "200%"}
+        attrs = {'class': 'paleblue', "width": "100%"}
 
 class PlayersValueByModel(tables.Table):
     worth = CurrencyColumn(orderable=True)
@@ -83,7 +83,7 @@ class PlayersValueByModel(tables.Table):
 
     class Meta: 
         model = PlayerValue
-        attrs = {'class': 'paleblue', 'width':'200%'}
+        attrs = {'class': 'paleblue', 'width':'100%'}
         fields = ("name", "paid", "projected_salaries", "difference", "worth")
 
 
