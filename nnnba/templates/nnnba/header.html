@@ -1,7 +1,13 @@
+
+{% load static %}
+
 <div class="header">
     <div class="header-title"> NNNBA </div>
     <div class="header-menu">
         <span class="header-menu-item"  onclick="location.href='{% url 'nnnba:main' %}'"  > Players </span>
         <span class="header-menu-item"  onclick="location.href='{% url 'nnnba:model_details' 'avg' %}'" > Models </span>
+        <span class="header-menu-item"  onclick="location.href='https://github.com/joeyism/nnnba/wiki'" > How It Works </span>
+        <span class="header-menu-item image"  onclick="location.href='https://github.com/joeyism/nnnba/'" ><img src="{% static 'nnnba/images/octocat.png' %} "></span>
+        
     </div>
 </div>

@@ -52,41 +52,42 @@
             <div id="container" style="min-width: 310px; max-width: 100%; height: 800px; margin: 0 auto"></div>
 
             <script type="text/javascript">
-$(function(){
-    $.getJSON("{% url 'nnnba:api:coef-detail' model_name %}", function(data){
-        var coef_vals = [], field_names = [];
+            $(function(){
+                $.getJSON("{% url 'nnnba:api:coef-detail' model_name %}", function(data){
+                    var coef_vals = [], field_names = [];
 
-        Object.keys(data).forEach(function(val){
-            field_names.push(val.toUpperCase());
-            coef_vals.push(data[val]);
-        });
+                    Object.keys(data).forEach(function(val){
+                        field_names.push(val.toUpperCase());
+                        coef_vals.push(data[val]);
+                    });
 
-        Highcharts.chart('container', {
-            chart: {
-                type: 'bar' 
-            },
-            title: {
-                text: "Coefficient of each field for {{model_name | upper}}" 
-            },
-            xAxis: {
-                categories: field_names,
-                title: {
-                    text: null
-                }
-            },
-            series: [{
-                name: 'Coefficient',
-                data: coef_vals
-            }]
-        })
+                    Highcharts.chart('container', {
+                        chart: {
+                            type: 'bar' 
+                        },
+                        title: {
+                            text: "Coefficient of each field for {{model_name | upper}}" 
+                        },
+                        xAxis: {
+                            categories: field_names,
+                            title: {
+                                text: null
+                            }
+                        },
+                        series: [{
+                            name: 'Coefficient',
+                            data: coef_vals
+                        }]
+                    })
 
-    });
+                });
+            });
 
-
-});
             </script>
 
             {% endif %}
         </div>
+
+        {% include 'nnnba/footer.html' %}
     </body>
 </html>

@@ -153,3 +153,13 @@ input#id_name {
 .header-menu-item:hover{
     border-bottom: 2px solid white;
 }
+
+.header-menu-item img{
+    width: 2%;
+}
+
+.footer{
+    text-align:center;
+    display: inline-block;
+    margin-bottom: 1%;
+}
