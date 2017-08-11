@@ -191,7 +191,7 @@ class NNNBA:
         self.X_df = pd.concat([self.X_df, pd.Series(age, name="AGE")], axis=1) 
 
         # v2 cleaning
-        self.X_df["MIN_x_NET_RATING"] = self.X_df["MIN"]*self.X_df["NET_RATING"]
+        self.X_df["MIN_X_NET_RATING"] = self.X_df["MIN"]*self.X_df["NET_RATING"]
         Y_df["SALARIES"] = Y_df["SALARIES"]/self.current_team_cap
 
 
@@ -205,7 +205,7 @@ class NNNBA:
         names = names.drop(idx_of_lt_gp)
 
 
-        self.X_df = self.X_df.drop(["drb_per_g", "fg3a_per_g", "fg2a_per_g", "fga_per_g", "g", "gs", "mp_per_g", "mp", "age",'GP', 'W', 'W_PCT', 'MIN', 'FGM', 'FG_PCT', 'FG3M', 'FG3A', 'FG3_PCT', 'FTM', 'FTA', 'FT_PCT', 'OREB', 'DREB', 'REB', 'AST', 'TOV', 'STL','BLK', 'PF', 'PFD', 'PTS', 'PLUS_MINUS', 'DD2', 'TD3', 'OFF_RATING', 'DEF_RATING', 'NET_RATING', 'AST_TO', 'EFG_PCT', 'TS_PCT', 'USG_PCT',  'PIE', 'PTS_2ND_CHANCE', "FGA", "L", "AGE", "PCT_TOV", "BLKA", "AST_PCT", "AST_RATIO", "OREB_PCT", "DREB_PCT", "REB_PCT", "TM_TOV_PCT", "PACE", "OPP_PTS_OFF_TOV", "OPP_PTS_FB", "OPP_PTS_PAINT", 'OPP_PTS_2ND_CHANCE', 'OPP_PTS_FB', 'PCT_FGA_2PT', 'PCT_FGA_3PT', 'PCT_PTS_2PT', 'PCT_PTS_2PT_MR', 'PCT_PTS_3PT', 'PCT_PTS_FB', 'PCT_PTS_FT', 'PCT_PTS_OFF_TOV','PCT_PTS_PAINT', 'PCT_AST_2PM', 'PCT_UAST_2PM', 'PCT_AST_3PM', 'PCT_UAST_3PM', 'PCT_AST_FGM', 'PCT_UAST_FGM', 'PCT_FGM', 'PCT_FGA','PCT_FG3M', 'PCT_FG3A', 'PCT_FTM', 'PCT_FTA', 'PCT_OREB', 'PCT_DREB','PCT_REB', 'PCT_AST', 'PCT_STL', 'PCT_BLK', 'PCT_BLKA', 'PTS_OFF_TOV', 'PTS_FB', 'PTS_PAINT', 'team_id', 'lg_id', 'pos'], 1)
+        self.X_df = self.X_df.drop(["fg_per_g", "drb_per_g", "fg3a_per_g", "fg2a_per_g", "fga_per_g", "g", "gs", "mp_per_g", "mp", "age",'GP', 'W', 'W_PCT', 'MIN', 'FGM', 'FG_PCT', 'FG3M', 'FG3A', 'FG3_PCT', 'FTM', 'FTA', 'FT_PCT', 'OREB', 'DREB', 'REB', 'AST', 'TOV', 'STL','BLK', 'PF', 'PFD', 'PTS', 'PLUS_MINUS', 'DD2', 'TD3', 'OFF_RATING', 'DEF_RATING', 'NET_RATING', 'AST_TO', 'EFG_PCT', 'TS_PCT', 'USG_PCT',  'PIE', 'PTS_2ND_CHANCE', "FGA", "L", "AGE", "PCT_TOV", "BLKA", "AST_PCT", "AST_RATIO", "OREB_PCT", "DREB_PCT", "REB_PCT", "TM_TOV_PCT", "PACE", "OPP_PTS_OFF_TOV", "OPP_PTS_FB", "OPP_PTS_PAINT", 'OPP_PTS_2ND_CHANCE', 'OPP_PTS_FB', 'PCT_FGA_2PT', 'PCT_FGA_3PT', 'PCT_PTS_2PT', 'PCT_PTS_2PT_MR', 'PCT_PTS_3PT', 'PCT_PTS_FB', 'PCT_PTS_FT', 'PCT_PTS_OFF_TOV','PCT_PTS_PAINT', 'PCT_AST_2PM', 'PCT_UAST_2PM', 'PCT_AST_3PM', 'PCT_UAST_3PM', 'PCT_AST_FGM', 'PCT_UAST_FGM', 'PCT_FGM', 'PCT_FGA','PCT_FG3M', 'PCT_FG3A', 'PCT_FTM', 'PCT_FTA', 'PCT_OREB', 'PCT_DREB','PCT_REB', 'PCT_AST', 'PCT_STL', 'PCT_BLK', 'PCT_BLKA', 'PTS_OFF_TOV', 'PTS_FB', 'PTS_PAINT', 'team_id', 'lg_id', 'pos'], 1)
 
 
 
@@ -282,6 +282,10 @@ class NNNBA:
         # add all_player_names
         self.all_player_names = list(names["NAME"].values)
 
+        # change % back to actual value
+        self.Y_df = self.Y_df*self.current_team_cap
+
+
 
     def getUndervalued(self, model_type=default_model_type):
         names = self.model_results[model_type]
@@ -328,6 +332,15 @@ class NNNBA:
         plt.scatter(range(len(X)), X)
         plt.show()
 
+    def plotXwrtSalary(self, col_name, X = None, Y = None):
+        import matplotlib.pyplot as plt
+        if X is None:
+            X = self.X_df.sort_values(by=col_name)[col_name].values
+        if Y is None:
+            Y = self.Y_df["SALARIES"]*self.current_team_cap
+        plt.figure()
+        plt.scatter(X, Y)
+        plt.show()
 
 def get_data(parallel=True):
     prepare_data.start(parallel=parallel)

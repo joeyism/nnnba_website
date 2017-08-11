@@ -49,6 +49,7 @@ def player_worth(request, player_id, model_name):
 
     return render(request, 'nnnba/player_value.html', { "stats": stats, "additional_stats": additional_stats, "player": player.__dict__, "value": value, "model_name": model_name})
 
+
 def model_details(request, model_name):
     if model_name == "models":
         model_name = "avg"

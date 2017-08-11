@@ -2,7 +2,7 @@ from nnnba.models import Player, MLModel, PlayerStats
 from nnnba_model import nnnba
 from django.core.management.base import BaseCommand, CommandError
 
-stats_col = [ "gp", "w", "w_pct", "min", "fgm", "fg_pct", "fg3m", "fg3a", "fg3_pct", "ftm", "fta", "ft_pct", "oreb", "dreb", "reb", "ast", "tov", "stl", "blk", "pf", "pfd", "pts", "plus_minus", "dd2", "td3", "off_rating", "def_rating", "net_rating", "ast_to", "efg_pct", "ts_pct", "usg_pct", "pie", "pts_2nd_chance", "Point Guard", "Shooting Guard", "Small Forward", "Power Forward", "Center"]
+stats_col = [ 'tov_pct', 'ts_pct', 'fg2_pct', 'trb_pct', 'pts_per_g', 'fg2_per_g', 'tov_per_g', 'orb_per_g', 'bpm', 'pf_per_g', 'usg_pct', 'fg_pct', 'fg3_pct', 'drb_pct', 'fta_per_fga_pct', 'stl_per_g', 'blk_pct', 'ows', 'ws', 'fg3a_per_fga_pct', 'efg_pct', 'fg3_per_g', 'ast_per_g', 'ft_per_g', 'fta_per_g', 'blk_per_g', 'orb_pct', 'stl_pct', 'vorp', 'dbpm', 'ws_per_48', 'dws', 'per', 'obpm', 'trb_per_g', 'ast_pct', 'ft_pct', 'MIN_X_NET_RATING']
 
 def add_players(model):
 
@@ -19,10 +19,10 @@ def add_players(model):
         kwargs_list = []
 
         for col in stats_col:
-            if col in ["Point Guard", "Shooting Guard", "Small Forward", "Power Forward", "Center"]:
-                kwargs_list.append((col.lower().replace(" ", "_"), float(player_stats[col].values[0])))
+            if col in ["MIN_X_NET_RATING"]:
+                kwargs_list.append((col, float(player_stats[col].values[0])))
             else:
-                kwargs_list.append((col, float(player_stats[col.upper()].values[0])))
+                kwargs_list.append((col.upper(), float(player_stats[col].values[0])))
 
         kwargs = dict(kwargs_list)
         stats = PlayerStats(**kwargs)
@@ -41,10 +41,10 @@ def add_model_coef_player_values(model):
             coef = model.getCoefFromModel(model_name)
             kwargs_list = []
             for col in stats_col:
-                if col in ["Point Guard", "Shooting Guard", "Small Forward", "Power Forward", "Center"]:
-                    kwargs_list.append((col.lower().replace(" ", "_"), float(coef["coef"][col])))
+                if col in ["MIN_X_NET_RATING"]:
+                    kwargs_list.append((col, float(coef["coef"][col])))
                 else:
-                    kwargs_list.append((col, float(coef["coef"][col.upper()])))
+                    kwargs_list.append((col.upper(), float(coef["coef"][col])))
 
             kwargs = dict(kwargs_list)
             stats = PlayerStats(**kwargs)
